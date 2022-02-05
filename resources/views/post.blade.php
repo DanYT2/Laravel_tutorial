@@ -7,9 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>My blog</title>
     <link rel="stylesheet" href="/css/app.css">
-    <script src="/js/app.js"></script>
 </head>
 <body>
-    <h1>Hello world</h1>
+    <article>
+        <h1><a href="/post">My first Post</a></h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusamus amet consectetur debitis doloribus error,
+            harum in ipsam iure molestiae nam nobis non nostrum numquam quam sint vel veritatis voluptas!
+        </p>
+    </article>
+    <a href="/">Go Back</a>
+
 </body>
 </html>
