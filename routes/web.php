@@ -25,8 +25,11 @@ Route::get('posts/{post}', function ($slug) {
 //        abort(404);
         return redirect('/');
     }
+    $post = cache()->remember('posts.{slug}', now()->addMinutes(20), function () use ($path){
+//        var_dump('file_get_contents');
+        return file_get_contents($path);
+    });
 
-    $post = file_get_contents($path);
     return view('post', [
         'post' => $post
     ]);
