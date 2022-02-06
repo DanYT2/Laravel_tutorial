@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('posts');
 });
 
-Route::get('post/{post}', function ($slug) {
+Route::get('posts/{post}', function ($slug) {
     $path = __DIR__ . "/../resources/posts/{$slug}.html";
 
     if (!file_exists($path)){
@@ -30,4 +30,5 @@ Route::get('post/{post}', function ($slug) {
     return view('post', [
         'post' => $post
     ]);
-});
+})->/* whereAlphaNumeric('post');*/where('post', '[A-z_\-]+');
+
