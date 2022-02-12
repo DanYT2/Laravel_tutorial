@@ -34,14 +34,18 @@ class Post
 
     public static function all(): \Illuminate\Support\Collection
     {
-        return collect(File::files(resource_path("posts")))
-            ->map(fn($file) =>YamlFrontMatter::parseFile($file))
-            ->map(fn ($document) => new Post(
-                $document->title,
-                $document->excerpt,
-                $document->date,
-                $document->body(),
-                $document->slug
-            ));
+        return cache()->rememberForever('posts.all', function (){
+            return collect(File::files(resource_path("posts")))
+                ->map(fn($file) =>YamlFrontMatter::parseFile($file))
+                ->map(fn ($document) => new Post(
+                    $document->title,
+                    $document->excerpt,
+                    $document->date,
+                    $document->body(),
+                    $document->slug
+                ))
+                ->sortByDesc('date');
+        });
+
     }
 }
