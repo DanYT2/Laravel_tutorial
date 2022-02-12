@@ -32,6 +32,16 @@ class Post
         return static::all()->firstWhere('slug',$slug);
     }
 
+    public static function findOrFail($slug)
+    {
+        // Of all the blog posts, find the slug of the one selected
+        $post = static::find($slug);
+        if (!$post){
+            throw new ModelNotFoundException();
+        }
+        return $post;
+    }
+
     public static function all(): \Illuminate\Support\Collection
     {
         return cache()->rememberForever('posts.all', function (){
