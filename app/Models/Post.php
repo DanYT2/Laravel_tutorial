@@ -15,6 +15,11 @@ class Post extends Model
     {
         return 'slug';          Specifies what will be used as a search parameter in the routes file
     }*/
+    public function category()
+    {
+        //hasOne, hasMany, belongsTo, belongsToMany
+        return $this->belongsTo(Category::class);
+    }
 
 
 }
