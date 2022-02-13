@@ -16,25 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
-    /*
-     * -------------------------
-     * Collection Approach
-     * -------------------------
-     * */
-    /* $posts = array_map(function ($file){
-        $document = YamlFrontMatter::parseFile($file);
-        return new Post(
-            $document->title,
-            $document->excerpt,
-            $document->date,
-            $document->body(),
-            $document->slug
-        );
-    }, $files);*/
+    \Illuminate\Support\Facades\DB::listen(function ($query){
+        logger($query->sql);
+    });
 
     return view('posts', [
-        'posts' => Post::all()
+        'posts' => Post::with('category')->get()
     ]);
 });
 
