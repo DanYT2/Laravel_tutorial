@@ -17,15 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    \Illuminate\Support\Facades\DB::listen(function ($query){
-        logger($query->sql);
-    });
-
     return view('posts', [
         'posts' => Post::latest()->with('category', 'author')->get(),
         'categories' => Category::all()
     ]);
-});
+})->name('home');
 
 Route::get('posts/{post}', function (Post $post) {
 //  Find a post by its slug and pass it to a view called 'post'
@@ -42,7 +38,7 @@ Route::get('categories/{category:slug}', function (Category $category){
         'currentCategory' => $category,
         'categories' => Category::all()
     ]);
-});
+})->name('category');
 
 Route::get('authors/{author:username}', function (User $author){
     return view('posts',[
