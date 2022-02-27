@@ -23,7 +23,7 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('posts/{post}', function (Post $post) {
+Route::get('posts/{post:slug}', function (Post $post) {
 //  Find a post by its slug and pass it to a view called 'post'
 
     return view('post', [
