@@ -7,51 +7,64 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <body style="font-family: Open Sans, sans-serif">
 <section class="px-6 py-8">
-    <nav class="md:flex md:justify-between md:items-center">
-        <div>
-            <a href="/">
-                <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
-            </a>
-        </div>
+  <nav class="md:flex md:justify-between md:items-center">
+    <div>
+      <a href="/">
+        <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
+      </a>
+    </div>
 
-        <div class="mt-8 md:mt-0">
-            <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+    <div class="mt-8 md:mt-0">
+      {{--@guest
+        <a href="/register" class="text-xs font-bold uppercase">Register</a>
+      @endguest--}}
+      @auth
+        <span class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
+        <form method="POST" action="/logout">
+          @csrf
 
-            <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                Subscribe for Updates
-            </a>
-        </div>
-    </nav>
+          <button type="submit">Log Out</button>
+        </form>
+      @else
+        <a href="/register" class="text-xs ml-6 font-bold uppercase">Register</a>
+        <a href="/login" class="text-xs ml-6 font-bold uppercase">Log in</a>
+      @endauth
 
-    {{ $slot }}
+      <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
+        Subscribe for Updates
+      </a>
+    </div>
+  </nav>
 
-    <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
-        <img src="./images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
-        <h5 class="text-3xl">Stay in touch with the latest posts</h5>
-        <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
+  {{ $slot }}
 
-        <div class="mt-10">
-            <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
+  <footer class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
+    <img src="./images/lary-newsletter-icon.svg" alt="" class="mx-auto -mb-6" style="width: 145px;">
+    <h5 class="text-3xl">Stay in touch with the latest posts</h5>
+    <p class="text-sm mt-3">Promise to keep the inbox clean. No bugs.</p>
 
-                <form method="POST" action="#" class="lg:flex text-sm">
-                    <div class="lg:py-3 lg:px-5 flex items-center">
-                        <label for="email" class="hidden lg:inline-block">
-                            <img src="./images/mailbox-icon.svg" alt="mailbox letter">
-                        </label>
+    <div class="mt-10">
+      <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
 
-                        <input id="email" type="text" placeholder="Your email address"
-                               class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
-                    </div>
+        <form method="POST" action="#" class="lg:flex text-sm">
+          <div class="lg:py-3 lg:px-5 flex items-center">
+            <label for="email" class="hidden lg:inline-block">
+              <img src="./images/mailbox-icon.svg" alt="mailbox letter">
+            </label>
 
-                    <button type="submit"
-                            class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
-                    >
-                        Subscribe
-                    </button>
-                </form>
-            </div>
-        </div>
-    </footer>
+            <input id="email" type="text" placeholder="Your email address"
+                   class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
+          </div>
+
+          <button type="submit"
+                  class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+  </footer>
 </section>
 <x-flash/>
 </body>
